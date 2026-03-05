@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Chef. Designer. Creator of Experiences.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #0A0A0A;
+      --black-soft: #141412;
+      --black-card: #1A1A18;
+      --gold: #C9A84C;
+      --gold-light: #E2D5A0;
+      --gold-muted: #A08A3C;
+      --gold-glow: rgba(201,168,76,0.1);
+      --white: #F5F5F0;
+      --white-soft: rgba(245,245,240,0.85);
+      --white-muted: rgba(245,245,240,0.5);
+      --white-faint: rgba(245,245,240,0.15);
+      --white-ghost: rgba(245,245,240,0.06);
+      --copper: #C27E4F;
+      --pine: #2D5E48;
+      --coco-red: #C0392B;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-elegant: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'Outfit', 'Helvetica Neue', sans-serif;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font-body); color: var(--white);
+      background: var(--black); overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* Grain texture */
+    body::after {
+      content: ''; position: fixed; inset: 0; z-index: 9998;
+      pointer-events: none; opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    /* ═══════════════════════════════════════
+       HERO — OPENING STATEMENT
+       ═══════════════════════════════════════ */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      justify-content: center; position: relative; overflow: hidden;
+      padding: 4rem 2rem;
+    }
+    .hero__watermark {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--font-display); font-size: clamp(6rem, 18vw, 14rem);
+      font-weight: 700; font-style: italic; color: var(--white);
+      opacity: 0; pointer-events: none; white-space: nowrap;
+      letter-spacing: 0.05em; z-index: 0;
+      animation: watermarkFade 3s ease 0.2s forwards;
+    }
+    @keyframes watermarkFade {
+      from { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
+      to { opacity: 0.025; transform: translate(-50%, -50%) scale(1); }
+    }
+    .hero__content {
+      position: relative; z-index: 1; text-align: center;
+      max-width: 700px;
+    }
+    .hero__label {
+      font-family: var(--font-body); font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--gold-muted); margin-bottom: 2rem;
+      opacity: 0; animation: fadeUp 0.8s ease 0.3s forwards;
+    }
+    .hero__title {
+      font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 400; font-style: italic; color: var(--white);
+      line-height: 1.3; margin-bottom: 1.5rem;
+      opacity: 0; animation: fadeUp 0.8s ease 0.5s forwards;
+    }
+    .hero__title span { color: var(--gold); }
+    .hero__line {
+      width: 50px; height: 1px; background: var(--gold);
+      margin: 0 auto 2rem;
+      opacity: 0; animation: fadeUp 0.8s ease 0.6s forwards;
+    }
+    .hero__subtitle {
+      font-family: var(--font-elegant); font-size: 1.3rem; font-weight: 300;
+      font-style: italic; color: var(--white-muted); letter-spacing: 0.03em;
+      line-height: 1.6;
+      opacity: 0; animation: fadeUp 0.8s ease 0.7s forwards;
+    }
+    .hero__scroll {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      opacity: 0; animation: fadeUp 0.8s ease 1.2s forwards;
+    }
+    .hero__scroll span {
+      font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--white-faint);
+    }
+    .hero__scroll-line {
+      width: 1px; height: 35px;
+      background: linear-gradient(to bottom, var(--gold-muted), transparent);
+      animation: scrollPulse 2s ease infinite;
+    }
+
+    /* ═══════════════════════════════════════
+       PILLARS — Three Disciplines
+       ═══════════════════════════════════════ */
+    .pillars {
+      max-width: 1100px; margin: 0 auto;
+      padding: 6rem 2rem;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+    }
+    .pillar {
+      text-align: center; padding: 3rem 2rem;
+      border: 1px solid var(--white-ghost);
+      border-radius: 2px; transition: border-color 0.4s ease;
+      position: relative;
+    }
+    .pillar:hover { border-color: var(--gold-glow); }
+    .pillar__icon {
+      width: 40px; height: 40px; margin: 0 auto 1.5rem;
+      color: var(--gold);
+    }
+    .pillar__title {
+      font-family: var(--font-display); font-size: 1.5rem;
+      font-weight: 400; font-style: italic; color: var(--white);
+      margin-bottom: 0.4rem;
+    }
+    .pillar__hindi {
+      font-size: 1rem; color: var(--gold-muted);
+      margin-bottom: 1.2rem;
+    }
+    .pillar__desc {
+      font-family: var(--font-body); font-size: 0.85rem; font-weight: 300;
+      color: var(--white-muted); line-height: 1.8;
+    }
+
+    /* ═══════════════════════════════════════
+       MANIFESTO — Core Statement
+       ═══════════════════════════════════════ */
+    .manifesto {
+      max-width: 750px; margin: 0 auto;
+      padding: 4rem 2rem 6rem; text-align: center;
+    }
+    .manifesto__divider {
+      display: flex; align-items: center; gap: 1.5rem;
+      margin-bottom: 4rem;
+    }
+    .manifesto__divider-line { flex: 1; height: 1px; background: var(--white-ghost); }
+    .manifesto__divider-star { width: 18px; height: 18px; }
+    .manifesto__text {
+      font-family: var(--font-elegant); font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+      font-weight: 300; font-style: italic; color: var(--white-soft);
+      line-height: 2; letter-spacing: 0.02em; margin-bottom: 3rem;
+    }
+    .manifesto__text em {
+      font-style: normal; color: var(--gold-light);
+    }
+    .manifesto__highlight {
+      font-family: var(--font-display); font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 400; font-style: italic; color: var(--white);
+      line-height: 1.5; margin-bottom: 2rem;
+    }
+    .manifesto__highlight span { color: var(--gold); }
+
+    /* ═══════════════════════════════════════
+       VALUES — What I Bring
+       ═══════════════════════════════════════ */
+    .values {
+      max-width: 800px; margin: 0 auto;
+      padding: 0 2rem 6rem;
+    }
+    .values__header {
+      text-align: center; margin-bottom: 3rem;
+    }
+    .values__label {
+      font-family: var(--font-body); font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.35em; text-transform: uppercase;
+      color: var(--gold-muted); margin-bottom: 0.8rem;
+    }
+    .values__title {
+      font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 400; font-style: italic; color: var(--white);
+    }
+    .values__line {
+      width: 40px; height: 1px; background: var(--gold);
+      margin: 1rem auto 0;
+    }
+    .value-item {
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--white-ghost);
+    }
+    .value-item:last-child { border-bottom: none; }
+    .value-item__name {
+      font-family: var(--font-elegant); font-size: 1.3rem; font-weight: 500;
+      color: var(--gold-light); margin-bottom: 0.5rem;
+    }
+    .value-item__desc {
+      font-family: var(--font-body); font-size: 0.88rem; font-weight: 300;
+      color: var(--white-muted); line-height: 1.8;
+    }
+
+    /* ═══════════════════════════════════════
+       CLOSING
+       ═══════════════════════════════════════ */
+    .closing {
+      text-align: center; padding: 4rem 2rem 5rem;
+      border-top: 1px solid var(--white-ghost);
+      max-width: 700px; margin: 0 auto;
+    }
+    .closing__text {
+      font-family: var(--font-elegant); font-size: 1.4rem;
+      font-weight: 300; font-style: italic;
+      color: var(--white-soft); line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+    .closing__text span { color: var(--gold); }
+    .closing__flag {
+      font-size: 0.7rem; font-weight: 400; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--white-faint);
+      margin-bottom: 1.5rem;
+    }
+    .closing__signature {
+      font-family: var(--font-display); font-size: 1.8rem;
+      font-weight: 400; font-style: italic; color: var(--gold);
+    }
+
+    /* ═══════════════════════════════════════
+       ANIMATIONS
+       ═══════════════════════════════════════ */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal--visible { opacity: 1; transform: translateY(0); }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes scrollPulse { 0%,100% { opacity: 0.3; } 50% { opacity: 0.8; } }
+
+    /* ═══════════════════════════════════════
+       RESPONSIVE
+       ═══════════════════════════════════════ */
+    @media (max-width: 768px) {
+      .pillars { grid-template-columns: 1fr; gap: 2rem; }
+      .pillar { padding: 2rem 1.5rem; }
+      .manifesto { padding: 3rem 1.5rem 4rem; }
+      .values { padding: 0 1.5rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- HERO                                    -->
+  <!-- ═══════════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero__watermark">Create</div>
+    <div class="hero__content">
+      <p class="hero__label">Chef &bull; Designer &bull; Technologist</p>
+      <h1 class="hero__title">
+        I don't just make food.<br>
+        I don't just build websites.<br>
+        I <span>create experiences</span>.
+      </h1>
+      <div class="hero__line"></div>
+      <p class="hero__subtitle">
+        A Canadian Chef by trade, a Digital Media Designer by choice, 
+        and an IT professional by night — my passion for expression 
+        goes beyond any single discipline.
+      </p>
+    </div>
+    <div class="hero__scroll">
+      <span>Read More</span>
+      <div class="hero__scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- THREE PILLARS                           -->
+  <!-- ═══════════════════════════════════════ -->
+  <section class="pillars">
+    <div class="pillar">
+      <svg class="pillar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+        <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+        <line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/>
+      </svg>
+      <h3 class="pillar__title">The Chef</h3>
+      <p class="pillar__hindi">रसोइया</p>
+      <p class="pillar__desc">
+        I understand food as storytelling. Every plate is a composition — 
+        colour, texture, balance, surprise. Years in Canadian kitchens 
+        taught me that a great dish isn't just tasted. It's felt.
+      </p>
+    </div>
+    <div class="pillar">
+      <svg class="pillar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
+        <path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/>
+      </svg>
+      <h3 class="pillar__title">The Designer</h3>
+      <p class="pillar__hindi">डिज़ाइनर</p>
+      <p class="pillar__desc">
+        I see the world in layouts, palettes, and type. Digital media 
+        is my canvas — where I translate feeling into pixels, 
+        atmosphere into interfaces, and brands into living, 
+        breathing visual experiences.
+      </p>
+    </div>
+    <div class="pillar">
+      <svg class="pillar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+        <line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+      </svg>
+      <h3 class="pillar__title">The Technologist</h3>
+      <p class="pillar__hindi">प्रौद्योगिकीविद</p>
+      <p class="pillar__desc">
+        I build the infrastructure that brings visions to life. 
+        From hosting to deployment, from code to cloud — 
+        the technical backbone that ensures every creative 
+        idea actually works in the real world.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- MANIFESTO                               -->
+  <!-- ═══════════════════════════════════════ -->
+  <section class="manifesto">
+    <div class="manifesto__divider">
+      <div class="manifesto__divider-line"></div>
+      <svg class="manifesto__divider-star" viewBox="0 0 100 100" fill="none">
+        <polygon points="50,5 61,35 95,35 68,57 78,90 50,70 22,90 32,57 5,35 39,35" fill="#C0392B" fill-opacity="0.5"/>
+      </svg>
+      <div class="manifesto__divider-line"></div>
+    </div>
+
+    <p class="manifesto__text">
+      Creativity isn't confined to a kitchen or a screen. It's a way of seeing — 
+      a refusal to accept the ordinary when the <em>extraordinary</em> is possible. 
+      I bring the precision of a chef's palate to the pixels of a webpage. 
+      I bring the eye of a designer to the plating of a dish. 
+      Every project I touch carries all three disciplines, 
+      because <em>great work doesn't come from one skill — it comes from their intersection</em>.
+    </p>
+
+    <h2 class="manifesto__highlight">
+      I take your <span>vision</span><br>
+      and help <span>manifest</span> it.
+    </h2>
+
+    <p class="manifesto__text">
+      Not just websites. Not just menus. Not just brands. 
+      <em>Complete, immersive experiences</em> that your customers 
+      don't just see — they feel, they remember, they come back for.
+    </p>
+  </section>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- VALUES                                  -->
+  <!-- ═══════════════════════════════════════ -->
+  <section class="values">
+    <div class="values__header">
+      <p class="values__label">What I Bring to the Table</p>
+      <h2 class="values__title">The Partnership</h2>
+      <div class="values__line"></div>
+    </div>
+
+    <div class="value-item">
+      <h3 class="value-item__name">A Chef's Understanding</h3>
+      <p class="value-item__desc">
+        I've lived in commercial kitchens. I know the rhythm of service, 
+        the importance of presentation, the way a menu tells a story. 
+        When I design for a restaurant, I'm not guessing — I'm drawing 
+        from years of lived experience behind the line.
+      </p>
+    </div>
+
+    <div class="value-item">
+      <h3 class="value-item__name">Design That Doesn't Compromise</h3>
+      <p class="value-item__desc">
+        Beautiful isn't enough. Every design decision serves a purpose — 
+        to guide the eye, to set a mood, to convert a visitor into a guest. 
+        I build interfaces that are as functional as they are stunning, 
+        because your brand deserves both.
+      </p>
+    </div>
+
+    <div class="value-item">
+      <h3 class="value-item__name">Technical Confidence</h3>
+      <p class="value-item__desc">
+        From code to cloud deployment, I handle the full stack. 
+        No handoffs to third parties, no lost-in-translation moments. 
+        Your vision goes from concept to live website through one set of hands 
+        that understands every layer.
+      </p>
+    </div>
+
+    <div class="value-item">
+      <h3 class="value-item__name">Diversity as a Lens</h3>
+      <p class="value-item__desc">
+        Canada's strength is its diversity, and I carry that value into everything I create. 
+        Inclusive design isn't an afterthought — it's the foundation. 
+        Spaces where everyone feels welcome, represented, and inspired 
+        to pull up a chair.
+      </p>
+    </div>
+
+    <div class="value-item">
+      <h3 class="value-item__name">Proudly Canadian</h3>
+      <p class="value-item__desc">
+        This country — its mountains, its people, its spirit — is in every 
+        pixel I push and every plate I compose. I create work that honours 
+        the land it comes from and the communities it serves.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- CLOSING                                 -->
+  <!-- ═══════════════════════════════════════ -->
+  <footer class="closing">
+    <p class="closing__text">
+      Let's build something <span>unforgettable</span> together.
+    </p>
+    <p class="closing__flag">Chef &bull; Designer &bull; Technologist &bull; Canadian</p>
+    <!-- EDIT: Replace with your name -->
+    <p class="closing__signature">— Michael</p>
+  </footer>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    (function(){
+      'use strict';
+      var targets = document.querySelectorAll('.pillar, .manifesto, .value-item, .values__header, .closing');
+      targets.forEach(function(el){ el.classList.add('reveal'); });
+      var obs = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){ e.target.classList.add('reveal--visible'); obs.unobserve(e.target); }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      targets.forEach(function(el){ obs.observe(el); });
+    })();
+  </script>
+</body>
+</html>

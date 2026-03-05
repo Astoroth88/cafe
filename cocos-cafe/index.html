@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coco's Cafe | Jasper, Alberta — Est. 1991</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --pine: #1B3D2F; --pine-light: #2D5E48; --copper: #C27E4F;
+      --copper-lt: #D4A373; --copper-glow: #E8C9A8; --snow: #FAFAF7;
+      --cream: #F3F0E8; --charcoal: #1C1C1A; --charcoal-mid: #2A2A27;
+      --warm-gray: #6B6860; --stone: #D9D4C9; --gold: #C9A84C;
+      --gold-light: #E2D5A0; --coco-red: #C0392B;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'Outfit', 'Helvetica Neue', sans-serif;
+      --nav-height: 72px;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: var(--font-body); color: var(--charcoal); background: var(--snow); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ── */
+    .nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); transition: background 0.4s ease, box-shadow 0.4s ease; }
+    .nav--scrolled { background: rgba(0,0,0,0.97); box-shadow: 0 2px 40px rgba(0,0,0,0.3); }
+    .nav__inner { max-width: 1280px; margin: 0 auto; padding: 0 2rem; height: var(--nav-height); display: flex; align-items: center; justify-content: space-between; }
+    .nav__brand { display: flex; align-items: center; gap: 0.7rem; }
+    .nav__star { width: 28px; height: 28px; flex-shrink: 0; }
+    .nav__logo { font-family: var(--font-display); font-size: 1.6rem; font-weight: 600; color: var(--snow); letter-spacing: 0.02em; transition: color 0.4s ease; }
+    .nav--scrolled .nav__logo { color: var(--gold-light); }
+    .nav__links { list-style: none; display: flex; gap: 2.2rem; }
+    .nav__links a { font-size: 0.82rem; font-weight: 500; color: rgba(250,250,247,0.7); letter-spacing: 0.12em; text-transform: uppercase; position: relative; transition: color 0.4s ease; }
+    .nav--scrolled .nav__links a { color: var(--gold); }
+    .nav__links a:hover { color: #FFFFFF; }
+    .nav__toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+    .nav__toggle span { width: 24px; height: 2px; background: var(--snow); }
+
+    /* ── HERO ── */
+    .hero { position: relative; height: 100vh; min-height: 700px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .hero__parallax-bg { position: absolute; inset: -20% 0 0 0; background-image: url('https://images.unsplash.com/photo-1609220361138-4ca5a1bca0ea?w=1920&q=85'); background-size: cover; background-position: center 40%; will-change: transform; }
+    .hero__overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(28,28,26,0.4) 0%, rgba(28,28,26,0.5) 60%, rgba(28,28,26,0.8) 100%); }
+
+    /* ── FAINT HERO STAR — large watermark style ── */
+    .hero__watermark-star {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 70vh;
+      height: 70vh;
+      max-width: 700px;
+      max-height: 700px;
+      z-index: 1;
+      opacity: 0;
+      animation: starFadeIn 2s ease 0.2s forwards;
+      pointer-events: none;
+    }
+
+    @keyframes starFadeIn {
+      from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+      to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+
+    .hero__content { position: relative; z-index: 2; text-align: center; padding: 2rem; }
+    .hero__est { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 1.2rem; opacity: 0; animation: fadeUp 0.8s ease 0.3s forwards; }
+    .hero__title { font-family: var(--font-display); font-size: clamp(3.5rem,10vw,8rem); font-weight: 400; line-height: 0.95; color: var(--snow); letter-spacing: -0.02em; margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.8s ease 0.5s forwards; }
+    .hero__tagline { font-size: 1.05rem; font-weight: 300; color: rgba(250,250,247,0.85); line-height: 1.7; margin-bottom: 2.5rem; opacity: 0; animation: fadeUp 0.8s ease 0.7s forwards; }
+    .hero__cta { display: inline-block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-light); border: 1px solid var(--gold); padding: 1rem 2.8rem; transition: all 0.4s ease; opacity: 0; animation: fadeUp 0.8s ease 0.9s forwards; }
+    .hero__cta:hover { background: var(--gold); color: var(--charcoal); transform: translateY(-2px); }
+    .hero__scroll-hint { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.6rem; z-index: 2; opacity: 0; animation: fadeUp 0.8s ease 1.3s forwards; }
+    .hero__scroll-hint span { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(250,250,247,0.5); }
+    .hero__scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, rgba(250,250,247,0.4), transparent); animation: scrollPulse 2s ease infinite; }
+
+    /* ── CAROUSEL ── */
+    .carousel { background: var(--charcoal); padding: 2rem 0; overflow: hidden; position: relative; }
+    .carousel__track-wrapper { overflow: hidden; }
+    .carousel__track {
+      display: flex; gap: 0.75rem;
+      animation: carouselScroll 40s linear infinite;
+      width: max-content;
+    }
+    .carousel__track:hover { animation-play-state: paused; }
+    .carousel__item {
+      flex-shrink: 0; width: 300px; height: 210px;
+      border-radius: 4px; overflow: hidden; position: relative;
+      background: var(--charcoal-mid);
+    }
+    .carousel__item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s ease; display: block;
+    }
+    .carousel__item:hover img { transform: scale(1.08); }
+    /* Placeholder style for empty image slots */
+    .carousel__item--placeholder {
+      display: flex; align-items: center; justify-content: center;
+      border: 1px dashed rgba(250,250,247,0.12);
+    }
+    .carousel__item--placeholder .carousel__placeholder-inner {
+      text-align: center; color: rgba(250,250,247,0.2);
+    }
+    .carousel__item--placeholder .carousel__placeholder-inner svg {
+      width: 36px; height: 36px; margin-bottom: 0.5rem; opacity: 0.4;
+    }
+    .carousel__item--placeholder .carousel__placeholder-inner span {
+      display: block; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .carousel__fade-left, .carousel__fade-right { position: absolute; top: 0; bottom: 0; width: 100px; z-index: 2; pointer-events: none; }
+    .carousel__fade-left { left: 0; background: linear-gradient(to right, var(--charcoal), transparent); }
+    .carousel__fade-right { right: 0; background: linear-gradient(to left, var(--charcoal), transparent); }
+    @keyframes carouselScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    /* ── INTRO ── */
+    .intro { background: var(--pine); padding: 2.5rem 2rem; text-align: center; }
+    .intro__inner { max-width: 900px; margin: 0 auto; }
+    .intro__text { font-size: 0.82rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper-glow); }
+    .intro__sub { font-size: 0.75rem; font-weight: 300; letter-spacing: 0.12em; color: rgba(250,250,247,0.5); margin-top: 0.6rem; }
+
+    /* ── MENU CARDS ── */
+    .menu-card { display: grid; grid-template-columns: 1fr 1fr; min-height: 70vh; overflow: hidden; }
+    .menu-card--reverse { direction: rtl; }
+    .menu-card--reverse > * { direction: ltr; }
+    .menu-card__image-wrap { position: relative; overflow: hidden; cursor: pointer; min-height: 400px; }
+    .menu-card__image { position: absolute; inset: 0; background-size: cover; background-position: center; transition: transform 0.7s ease; }
+    .menu-card__image-wrap:hover .menu-card__image { transform: scale(1.05); }
+    .menu-card__image-overlay { position: absolute; inset: 0; background: rgba(27,61,47,0.3); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.4s ease; }
+    .menu-card__image-wrap:hover .menu-card__image-overlay { opacity: 1; }
+    .menu-card__image-cta { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--snow); border: 1px solid rgba(250,250,247,0.6); padding: 0.9rem 2.4rem; transition: all 0.3s ease; }
+    .menu-card__image-wrap:hover .menu-card__image-cta { background: rgba(250,250,247,0.1); }
+    .menu-card__image-overlay--gold { background: rgba(0,0,0,0.45); }
+    .menu-card__image-cta--gold { color: var(--gold-light); border-color: var(--gold); }
+    .menu-card__content { display: flex; flex-direction: column; justify-content: center; padding: 4rem 5rem; background: var(--snow); }
+    .menu-card__label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: var(--copper); margin-bottom: 1rem; }
+    .menu-card__label--gold { color: var(--gold); }
+    .menu-card__title { font-family: var(--font-display); font-size: clamp(2.5rem,5vw,4rem); font-weight: 400; color: var(--pine); line-height: 1.1; margin-bottom: 0.6rem; }
+    .menu-card__subtitle { font-family: var(--font-display); font-size: 1.15rem; font-weight: 400; font-style: italic; color: var(--warm-gray); margin-bottom: 1.8rem; }
+    .menu-card__desc { font-size: 0.95rem; font-weight: 300; line-height: 1.8; color: var(--warm-gray); max-width: 480px; margin-bottom: 2rem; }
+    .menu-card__arrow { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; color: var(--copper); }
+    .menu-card--dinner .menu-card__content { background: var(--charcoal); }
+    .menu-card--dinner .menu-card__title { color: var(--snow); }
+    .menu-card--dinner .menu-card__subtitle { color: var(--gold-light); }
+    .menu-card--dinner .menu-card__desc { color: rgba(250,250,247,0.7); }
+    .menu-card--dinner .menu-card__arrow { color: var(--gold); }
+    .menu-card:nth-of-type(even):not(.menu-card--dinner) .menu-card__content { background: var(--cream); }
+
+    /* ── CATERING ── */
+    .catering { position: relative; min-height: 60vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .catering__parallax-bg { position: absolute; inset: -20% 0 0 0; background-image: url('https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?w=1920&q=80'); background-size: cover; background-position: center; will-change: transform; }
+    .catering__overlay { position: absolute; inset: 0; background: rgba(27,61,47,0.8); }
+    .catering__content { position: relative; z-index: 2; text-align: center; padding: 4rem 2rem; max-width: 700px; }
+    .catering__label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: var(--copper-glow); margin-bottom: 1rem; }
+    .catering__title { font-family: var(--font-display); font-size: clamp(2.2rem,5vw,3.5rem); font-weight: 400; color: var(--snow); line-height: 1.15; margin-bottom: 1.5rem; }
+    .catering__desc { font-size: 1rem; font-weight: 300; line-height: 1.8; color: rgba(250,250,247,0.75); margin-bottom: 2.5rem; }
+    .catering__cta { display: inline-block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-light); border: 1px solid var(--gold); padding: 1rem 2.8rem; transition: all 0.4s ease; }
+    .catering__cta:hover { background: var(--gold); color: var(--charcoal); transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    .footer { background: var(--charcoal); padding: 5rem 2rem 2.5rem; }
+    .footer__inner { max-width: 1100px; margin: 0 auto; }
+    .footer__brand { text-align: center; margin-bottom: 3.5rem; padding-bottom: 3rem; border-bottom: 1px solid rgba(250,250,247,0.08); }
+    .footer__brand-mark { display: flex; align-items: center; justify-content: center; gap: 0.8rem; margin-bottom: 0.5rem; }
+    .footer__brand-star { width: 32px; height: 32px; }
+    .footer__logo { font-family: var(--font-display); font-size: 2.5rem; font-weight: 400; color: var(--snow); }
+    .footer__est { font-size: 0.75rem; font-weight: 400; letter-spacing: 0.15em; color: var(--copper-lt); }
+    .footer__info { display: grid; grid-template-columns: repeat(3,1fr); gap: 3rem; margin-bottom: 4rem; }
+    .footer__col h3 { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--copper-glow); margin-bottom: 1rem; }
+    .footer__col p { font-size: 0.9rem; font-weight: 300; color: rgba(250,250,247,0.6); line-height: 1.7; margin-bottom: 0.5rem; }
+    .footer__col a:hover { color: var(--copper-glow); }
+    .footer__dinner-hours { color: var(--gold) !important; font-weight: 500 !important; }
+    .footer__owner { margin-top: 1.2rem; width: 100%; max-width: 180px; aspect-ratio: 1; border-radius: 4px; overflow: hidden; border: 1px solid rgba(250,250,247,0.1); background: var(--charcoal-mid); position: relative; }
+    .footer__owner img { width: 100%; height: 100%; object-fit: cover; }
+    .footer__owner-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: rgba(250,250,247,0.2); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; gap: 0.5rem; }
+    .footer__owner-placeholder svg { width: 32px; height: 32px; opacity: 0.3; }
+    .footer__owner-name { font-size: 0.8rem; font-weight: 500; color: rgba(250,250,247,0.5); margin-top: 0.6rem; font-style: italic; }
+    .footer__bottom { text-align: center; padding-top: 2.5rem; border-top: 1px solid rgba(250,250,247,0.06); }
+    .footer__bottom p { font-size: 0.75rem; color: rgba(250,250,247,0.3); letter-spacing: 0.05em; }
+    .footer__inclusive { margin-top: 0.4rem; font-style: italic; color: rgba(250,250,247,0.2) !important; }
+
+    /* ── ANIMATIONS ── */
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal--visible { opacity: 1; transform: translateY(0); }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes scrollPulse { 0%,100% { opacity: 0.4; } 50% { opacity: 1; } }
+    .page-transition-overlay { position: fixed; z-index: 9999; background-size: cover; background-position: center; pointer-events: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav__links { display: none; position: absolute; top: var(--nav-height); left: 0; width: 100%; background: rgba(0,0,0,0.98); flex-direction: column; align-items: center; padding: 2rem 0; gap: 1.5rem; }
+      .nav__links--open { display: flex; }
+      .nav__toggle { display: flex; }
+      .menu-card { grid-template-columns: 1fr; }
+      .menu-card--reverse { direction: ltr; }
+      .menu-card__image-wrap { min-height: 300px; }
+      .menu-card__content { padding: 2.5rem 2rem; }
+      .footer__info { grid-template-columns: 1fr; text-align: center; }
+      .footer__owner { margin: 1.2rem auto 0; }
+      .carousel__item { width: 240px; height: 170px; }
+      .hero__watermark-star { width: 50vh; height: 50vh; }
+    }
+    @media (max-width: 480px) {
+      .menu-card__content { padding: 2rem 1.5rem; }
+      .hero__cta { padding: 0.8rem 2rem; font-size: 0.72rem; }
+      .carousel__item { width: 200px; height: 145px; }
+      .hero__watermark-star { width: 40vh; height: 40vh; }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#hero" class="nav__brand">
+        <svg class="nav__star" viewBox="0 0 100 100" fill="none"><polygon points="50,5 61,35 95,35 68,57 78,90 50,70 22,90 32,57 5,35 39,35" fill="#C0392B" stroke="#D94A3C" stroke-width="1.5"/></svg>
+        <span class="nav__logo">Coco's Cafe</span>
+      </a>
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+      <ul class="nav__links" id="navLinks">
+        <li><a href="#breakfast">Breakfast</a></li>
+        <li><a href="#lunch">Lunch</a></li>
+        <li><a href="#dinner">Dinner</a></li>
+        <li><a href="#catering">Catering</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero" id="hero">
+    <div class="hero__parallax-bg" id="heroBg"></div>
+    <div class="hero__overlay"></div>
+
+    <!-- LARGE FAINT WATERMARK STAR -->
+    <svg class="hero__watermark-star" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon
+        points="50,5 61,35 95,35 68,57 78,90 50,70 22,90 32,57 5,35 39,35"
+        fill="#C0392B"
+        fill-opacity="0.08"
+        stroke="#C0392B"
+        stroke-opacity="0.12"
+        stroke-width="0.5"
+      />
+    </svg>
+
+    <div class="hero__content">
+      <p class="hero__est">Est. 1991 — Jasper National Park</p>
+      <h1 class="hero__title">Coco's<br>Cafe</h1>
+      <p class="hero__tagline">Fresh. Local. Made with love<br>in the heart of the Canadian Rockies.</p>
+      <a href="#breakfast" class="hero__cta">Explore Our Menus</a>
+    </div>
+    <div class="hero__scroll-hint" id="scrollHint"><span>Scroll</span><div class="hero__scroll-line"></div></div>
+  </header>
+
+  <!-- CAROUSEL -->
+  <section class="carousel">
+    <div class="carousel__fade-left"></div>
+    <div class="carousel__fade-right"></div>
+    <div class="carousel__track-wrapper">
+      <div class="carousel__track" id="carouselTrack">
+        <!--
+          IMAGE CAROUSEL — Replace placeholder src with your own photos.
+          Recommended: food shots, mountain scenery, cafe interior, happy guests.
+          Keep the duplicate set at the bottom for infinite scroll effect.
+        -->
+
+        <!-- Set 1 (originals) -->
+        <div class="carousel__item">
+          <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=500&q=80" alt="Fresh brewed coffee">
+        </div>
+        <div class="carousel__item">
+          <img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=500&q=80" alt="Breakfast platter">
+        </div>
+        <div class="carousel__item--placeholder carousel__item">
+          <div class="carousel__placeholder-inner">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+            <span>Your Photo</span>
+          </div>
+        </div>
+        <div class="carousel__item">
+          <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&q=80" alt="Rocky Mountain peaks">
+        </div>
+        <div class="carousel__item--placeholder carousel__item">
+          <div class="carousel__placeholder-inner">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+            <span>Your Photo</span>
+          </div>
+        </div>
+        <div class="carousel__item">
+          <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500&q=80" alt="Beautifully plated dish">
+        </div>
+        <div class="carousel__item">
+          <img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=500&q=80" alt="Fresh healthy meal">
+        </div>
+        <div class="carousel__item--placeholder carousel__item">
+          <div class="carousel__placeholder-inner">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+            <span>Your Photo</span>
+          </div>
+        </div>
+        <div class="carousel__item">
+          <img src="https://images.unsplash.com/photo-1609220361138-4ca5a1bca0ea?w=500&q=80" alt="Canadian Rockies landscape">
+        </div>
+        <div class="carousel__item--placeholder carousel__item">
+          <div class="carousel__placeholder-inner">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+            <span>Your Photo</span>
+          </div>
+        </div>
+
+        <!-- Set 2 (duplicates for seamless loop) -->
+        <div class="carousel__item">
+          <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=500&q=80" alt="Fresh brewed coffee">
+        </div>
+        <div class="carousel__item">
+          <img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=500&q=80" alt="Breakfast platter">
+        </div>
+        <div class="carousel__item--placeholder carousel__item">
+          <div class="carousel__placeholder-inner">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+            <span>Your Photo</span>
+          </div>
+        </div>
+        <div class="carousel__item">
+          <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&q=80" alt="Rocky Mountain peaks">
+        </div>
+        <div class="carousel__item--placeholder carousel__item">
+          <div class="carousel__placeholder-inner">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+            <span>Your Photo</span>
+          </div>
+        </div>
+        <div class="carousel__item">
+          <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500&q=80" alt="Beautifully plated dish">
+        </div>
+        <div class="carousel__item">
+          <img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=500&q=80" alt="Fresh healthy meal">
+        </div>
+        <div class="carousel__item--placeholder carousel__item">
+          <div class="carousel__placeholder-inner">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+            <span>Your Photo</span>
+          </div>
+        </div>
+        <div class="carousel__item">
+          <img src="https://images.unsplash.com/photo-1609220361138-4ca5a1bca0ea?w=500&q=80" alt="Canadian Rockies landscape">
+        </div>
+        <div class="carousel__item--placeholder carousel__item">
+          <div class="carousel__placeholder-inner">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+            <span>Your Photo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="intro">
+    <div class="intro__inner">
+      <p class="intro__text">Vegan &bull; Vegetarian &bull; Celiac-Friendly &bull; Carnivore-Approved</p>
+      <p class="intro__sub">Artisan sourdough scratch-baked in-house daily &bull; Phil &amp; Sebastian Coffee</p>
+    </div>
+  </section>
+
+  <!-- BREAKFAST -->
+  <section class="menu-card" id="breakfast">
+    <div class="menu-card__image-wrap" data-page="breakfast.html">
+      <div class="menu-card__image" style="background-image: url('https://images.unsplash.com/photo-1525351484163-7529414344d8?w=1200&q=80');"><div class="menu-card__image-overlay"><span class="menu-card__image-cta">View Menu</span></div></div>
+    </div>
+    <div class="menu-card__content">
+      <span class="menu-card__label">Morning</span>
+      <h2 class="menu-card__title">Breakfast</h2>
+      <p class="menu-card__subtitle">Start your mountain day right</p>
+      <p class="menu-card__desc">From our world-famous curry-infused breakfast wraps to house-baked artisan sourdough bagels with signature cream cheese flavours — Coco's has been fuelling Jasper adventurers since 1991. Vegan, vegetarian, and gluten-free options available on every dish.</p>
+      <span class="menu-card__arrow">&larr; Click the image to explore</span>
+    </div>
+  </section>
+
+  <!-- LUNCH -->
+  <section class="menu-card menu-card--reverse" id="lunch">
+    <div class="menu-card__image-wrap" data-page="lunch.html">
+      <div class="menu-card__image" style="background-image: url('https://images.unsplash.com/photo-1547592180-85f173990554?w=1200&q=80');"><div class="menu-card__image-overlay"><span class="menu-card__image-cta">View Menu</span></div></div>
+    </div>
+    <div class="menu-card__content">
+      <span class="menu-card__label">Midday</span>
+      <h2 class="menu-card__title">Lunch</h2>
+      <p class="menu-card__subtitle">Refuel between adventures</p>
+      <p class="menu-card__desc">Hearty sandwiches on our house sourdough, nourishing bowls, homemade soups, and fresh salads. Whether you're coming off the trails or exploring Patricia Street, Coco's lunch menu has something for every appetite and every dietary need.</p>
+      <span class="menu-card__arrow">Click the image to explore &rarr;</span>
+    </div>
+  </section>
+
+  <!-- DINNER -->
+  <section class="menu-card menu-card--dinner" id="dinner">
+    <div class="menu-card__image-wrap" data-page="dinner.html">
+      <div class="menu-card__image" style="background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&q=80');"><div class="menu-card__image-overlay menu-card__image-overlay--gold"><span class="menu-card__image-cta menu-card__image-cta--gold">Experience Dinner</span></div></div>
+    </div>
+    <div class="menu-card__content">
+      <span class="menu-card__label menu-card__label--gold">New — Summer 2026</span>
+      <h2 class="menu-card__title">Dinner</h2>
+      <p class="menu-card__subtitle">Elevated Canadian fine dining</p>
+      <p class="menu-card__desc">This summer, Coco's transforms after dark. Elk Chateaubriand with BC chanterelles. Atlantic lobster ravioli. Seared Quebec duck breast. A curated wine list from BC's Okanagan Valley. Fine dining meets mountain soul — an experience unlike any other in Jasper.</p>
+      <span class="menu-card__arrow">&larr; Click the image to explore</span>
+    </div>
+  </section>
+
+  <!-- CATERING -->
+  <section class="catering" id="catering">
+    <div class="catering__parallax-bg" id="cateringBg"></div>
+    <div class="catering__overlay"></div>
+    <div class="catering__content">
+      <span class="catering__label">Celebrations</span>
+      <h2 class="catering__title">Catering &amp; Food Trailer</h2>
+      <p class="catering__desc">From intimate mountain weddings to corporate retreats — Coco's brings the full experience to you. Custom dinner menus, decadent wedding cakes, and our beloved Coco's Goes Food Trailer can set up wherever the celebration takes you.</p>
+      <a href="#contact" class="catering__cta">Get in Touch</a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="menu-card menu-card--reverse" id="about">
+    <div class="menu-card__image-wrap" data-page="about.html">
+      <div class="menu-card__image" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=80');"><div class="menu-card__image-overlay"><span class="menu-card__image-cta">Our Story</span></div></div>
+    </div>
+    <div class="menu-card__content">
+      <span class="menu-card__label">Since 1991</span>
+      <h2 class="menu-card__title">About</h2>
+      <p class="menu-card__subtitle">A Jasper original</p>
+      <p class="menu-card__desc">One of Jasper's first espresso cafes, Coco's has grown from coffee and cheesecake into a full-service restaurant that champions local ingredients, inclusive dining, and the welcoming spirit of the Canadian Rockies. LGBTQ-friendly. Dog-friendly patio. Community proud.</p>
+      <span class="menu-card__arrow">Click the image to read more &rarr;</span>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="contact">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <div class="footer__brand-mark">
+          <svg class="footer__brand-star" viewBox="0 0 100 100" fill="none"><polygon points="50,5 61,35 95,35 68,57 78,90 50,70 22,90 32,57 5,35 39,35" fill="#C0392B" stroke="#D94A3C" stroke-width="1.5"/></svg>
+          <h2 class="footer__logo">Coco's Cafe</h2>
+        </div>
+        <p class="footer__est">Est. 1991 — Jasper National Park, Alberta, Canada</p>
+      </div>
+      <div class="footer__info">
+        <div class="footer__col">
+          <h3>Visit Us</h3>
+          <p>608-B Patricia Street<br>Jasper, AB T0E 1E0</p>
+          <p><a href="tel:7808524550">(780) 852-4550</a></p>
+        </div>
+        <div class="footer__col">
+          <h3>Hours</h3>
+          <p>Monday — Sunday<br>7:00 AM — 4:00 PM</p>
+          <p class="footer__dinner-hours">Dinner Service<br>Coming Summer 2026</p>
+        </div>
+        <div class="footer__col">
+          <h3>Follow Along</h3>
+          <p><a href="https://www.instagram.com/cocoscafe.jasper/" target="_blank" rel="noopener">Instagram @cocoscafe.jasper</a></p>
+          <!-- EDIT: Replace with owner photo: <img src="images/owner.jpg" alt="Owner Name"> -->
+          <div class="footer__owner">
+            <div class="footer__owner-placeholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+              <span>Owner Photo</span>
+            </div>
+          </div>
+          <p class="footer__owner-name">— Your name here</p>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 Coco's Cafe. All rights reserved.</p>
+        <p class="footer__inclusive">Everyone is welcome here.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function(){
+      'use strict';
+      var PARALLAX_SPEED=0.35, NAV_SCROLL_THRESHOLD=80;
+      var nav=document.getElementById('nav'), navToggle=document.getElementById('navToggle'), navLinks=document.getElementById('navLinks'), heroBg=document.getElementById('heroBg'), cateringBg=document.getElementById('cateringBg'), scrollHint=document.getElementById('scrollHint');
+
+      function handleParallax(){
+        var s=window.pageYOffset;
+        if(heroBg){var h=heroBg.parentElement.offsetHeight; if(s<h) heroBg.style.transform='translate3d(0,'+(s*PARALLAX_SPEED)+'px,0)';}
+        if(cateringBg){var r=cateringBg.parentElement.getBoundingClientRect(); if(r.top<window.innerHeight&&r.bottom>0){var o=(window.innerHeight-r.top)*(PARALLAX_SPEED*0.5); cateringBg.style.transform='translate3d(0,'+(-o)+'px,0)';}}
+      }
+      function handleNavScroll(){
+        var s=window.pageYOffset;
+        if(s>NAV_SCROLL_THRESHOLD) nav.classList.add('nav--scrolled'); else nav.classList.remove('nav--scrolled');
+        if(scrollHint) scrollHint.style.opacity=Math.max(0,1-s/300);
+      }
+      if(navToggle&&navLinks){
+        navToggle.addEventListener('click',function(){navLinks.classList.toggle('nav__links--open');});
+        navLinks.querySelectorAll('a').forEach(function(l){l.addEventListener('click',function(){navLinks.classList.remove('nav__links--open');});});
+      }
+      // Scroll reveal
+      var targets=document.querySelectorAll('.menu-card__content,.catering__content,.footer__brand,.footer__info');
+      targets.forEach(function(el){el.classList.add('reveal');});
+      var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('reveal--visible');obs.unobserve(e.target);}});},{threshold:0.15,rootMargin:'0px 0px -50px 0px'});
+      targets.forEach(function(el){obs.observe(el);});
+
+      // Image expand
+      var overlay=document.createElement('div'); overlay.className='page-transition-overlay'; document.body.appendChild(overlay);
+      document.querySelectorAll('.menu-card__image-wrap[data-page]').forEach(function(wrap){
+        wrap.addEventListener('click',function(){
+          var page=wrap.getAttribute('data-page');
+          var img=wrap.querySelector('.menu-card__image'); var bg=img?img.style.backgroundImage:'';
+          var rect=wrap.getBoundingClientRect();
+          overlay.style.cssText='background-image:'+bg+';top:'+rect.top+'px;left:'+rect.left+'px;width:'+rect.width+'px;height:'+rect.height+'px;opacity:1;pointer-events:all;';
+          overlay.offsetHeight;
+          overlay.style.transition='all 0.6s cubic-bezier(0.4,0,0.2,1)';
+          overlay.style.top='0';overlay.style.left='0';overlay.style.width='100vw';overlay.style.height='100vh';
+          setTimeout(function(){
+            // Navigate to subpage if it exists, otherwise reset
+            if(page){
+              window.location.href=page;
+            } else {
+              overlay.style.transition='opacity 0.4s';overlay.style.opacity='0';
+              setTimeout(function(){overlay.style.cssText='';},400);
+            }
+          },650);
+        });
+      });
+
+      // Smooth scroll
+      document.querySelectorAll('a[href^="#"]').forEach(function(a){
+        a.addEventListener('click',function(e){
+          var t=document.querySelector(this.getAttribute('href')); if(!t) return;
+          e.preventDefault(); window.scrollTo({top:t.getBoundingClientRect().top+window.pageYOffset-72,behavior:'smooth'});
+        });
+      });
+
+      var lastTime=0;
+      window.addEventListener('scroll',function(){var n=Date.now();if(n-lastTime>=16){lastTime=n;handleParallax();handleNavScroll();}},{passive:true});
+      handleNavScroll();
+    })();
+  </script>
+</body>
+</html>

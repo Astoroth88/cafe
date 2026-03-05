@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lunch — Coco's Cafe | Jasper, Alberta</title>
+  <meta name="description" content="Refuel between adventures with hearty sandwiches on house sourdough, nourishing bowls, and fresh salads in the heart of Jasper National Park.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ═══════════════════════════════════════════════════════
+       COCO'S CAFE — LUNCH
+       Modern Alpine — Pine / Copper / Snow
+       ═══════════════════════════════════════════════════════ */
+    :root {
+      --pine: #1B3D2F;
+      --pine-deep: #142E23;
+      --pine-light: #2D5E48;
+      --pine-soft: rgba(27,61,47,0.08);
+      --copper: #C27E4F;
+      --copper-lt: #D4A373;
+      --copper-glow: #E8C9A8;
+      --copper-soft: rgba(194,126,79,0.12);
+      --snow: #FAFAF7;
+      --cream: #F3F0E8;
+      --cream-warm: #EDE8DC;
+      --charcoal: #1C1C1A;
+      --warm-gray: #6B6860;
+      --stone: #D9D4C9;
+      --coco-red: #C0392B;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'Outfit', 'Helvetica Neue', sans-serif;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font-body); color: var(--charcoal);
+      background: var(--snow); overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ═══════════════════════════════════════
+       BACK BUTTON
+       ═══════════════════════════════════════ */
+    .back-btn {
+      position: fixed; top: 24px; left: 24px; z-index: 1000;
+      display: flex; align-items: center; gap: 0.6rem;
+      font-family: var(--font-body); font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(250,250,247,0.7); background: rgba(27,61,47,0.5);
+      backdrop-filter: blur(12px); border: 1px solid rgba(250,250,247,0.15);
+      padding: 0.7rem 1.3rem; border-radius: 2px;
+      cursor: pointer; transition: all 0.3s ease;
+    }
+    .back-btn:hover {
+      color: var(--snow); border-color: var(--copper);
+      background: rgba(27,61,47,0.8);
+    }
+    .back-btn svg { width: 16px; height: 16px; }
+
+    /* ═══════════════════════════════════════
+       HERO
+       ═══════════════════════════════════════ */
+    .lunch-hero {
+      position: relative; height: 100vh; min-height: 650px;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .lunch-hero__bg {
+      position: absolute; inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1547592180-85f173990554?w=1920&q=85');
+      background-size: cover; background-position: center;
+    }
+    .lunch-hero__overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(27,61,47,0.35) 0%,
+        rgba(27,61,47,0.3) 40%,
+        rgba(27,61,47,0.55) 70%,
+        rgba(27,61,47,0.92) 100%
+      );
+    }
+    .lunch-hero__content {
+      position: relative; z-index: 2; text-align: center; padding: 2rem;
+    }
+    .lunch-hero__watermark {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--font-display); font-size: clamp(8rem, 22vw, 16rem);
+      font-weight: 700; font-style: italic; color: var(--snow);
+      opacity: 0.04; pointer-events: none; white-space: nowrap;
+      letter-spacing: 0.05em; z-index: 1;
+      animation: watermarkFade 2.5s ease 0.1s forwards;
+    }
+    @keyframes watermarkFade {
+      from { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
+      to { opacity: 0.04; transform: translate(-50%, -50%) scale(1); }
+    }
+    .lunch-hero__hindi {
+      font-family: var(--font-display); font-size: clamp(1.6rem, 4vw, 2.8rem);
+      font-weight: 400; color: var(--copper-glow); letter-spacing: 0.15em;
+      margin-bottom: 1.2rem;
+      opacity: 0; animation: fadeUp 0.8s ease 0.6s forwards;
+    }
+    .lunch-hero__star {
+      width: 36px; height: 36px; margin: 0 auto 1.5rem;
+      opacity: 0; animation: fadeUp 0.8s ease 0.2s forwards;
+    }
+    .lunch-hero__label {
+      font-family: var(--font-body); font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--copper-glow); margin-bottom: 1rem;
+      opacity: 0; animation: fadeUp 0.8s ease 0.3s forwards;
+    }
+    .lunch-hero__title {
+      font-family: var(--font-display); font-size: clamp(3.5rem,9vw,7rem);
+      font-weight: 400; font-style: italic; color: var(--snow);
+      letter-spacing: 0.02em; line-height: 1.1; margin-bottom: 0.6rem;
+      opacity: 0; animation: fadeUp 0.8s ease 0.5s forwards;
+    }
+    .lunch-hero__line {
+      width: 60px; height: 1px; background: var(--copper);
+      margin: 0 auto 1.5rem;
+      opacity: 0; animation: fadeUp 0.8s ease 0.65s forwards;
+    }
+    .lunch-hero__tagline {
+      font-family: var(--font-display); font-size: 1.2rem; font-weight: 300;
+      font-style: italic; color: rgba(250,250,247,0.85); letter-spacing: 0.05em;
+      opacity: 0; animation: fadeUp 0.8s ease 0.75s forwards;
+    }
+    .lunch-hero__scroll {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      z-index: 2; opacity: 0; animation: fadeUp 0.8s ease 1.2s forwards;
+    }
+    .lunch-hero__scroll span {
+      font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: rgba(250,250,247,0.4);
+    }
+    .lunch-hero__scroll-line {
+      width: 1px; height: 35px;
+      background: linear-gradient(to bottom, var(--copper), transparent);
+      animation: scrollPulse 2s ease infinite;
+    }
+
+    /* ═══════════════════════════════════════
+       MENU CONTAINER
+       ═══════════════════════════════════════ */
+    .menu {
+      max-width: 820px; margin: 0 auto;
+      padding: 5rem 2rem 4rem;
+    }
+
+    .menu__section { margin-bottom: 4rem; }
+    .menu__section-header { text-align: center; margin-bottom: 2.5rem; }
+    .menu__section-label {
+      font-family: var(--font-body); font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.35em; text-transform: uppercase;
+      color: var(--copper); margin-bottom: 0.6rem;
+    }
+    .menu__section-title {
+      font-family: var(--font-display); font-size: clamp(1.8rem,4vw,2.8rem);
+      font-weight: 400; font-style: italic; color: var(--pine);
+      letter-spacing: 0.02em; margin-bottom: 0.8rem;
+    }
+    .menu__section-line { width: 40px; height: 1px; background: var(--copper); margin: 0 auto; }
+
+    .menu-item {
+      padding: 1.6rem 0; border-bottom: 1px solid var(--stone);
+      transition: border-color 0.3s ease;
+    }
+    .menu-item:last-child { border-bottom: none; }
+    .menu-item:hover { border-color: var(--copper-lt); }
+
+    .menu-item__header {
+      display: flex; justify-content: space-between; align-items: baseline;
+      gap: 1rem; margin-bottom: 0.5rem;
+    }
+    .menu-item__name {
+      font-family: var(--font-display); font-size: 1.35rem; font-weight: 500;
+      color: var(--pine); letter-spacing: 0.02em;
+    }
+    .menu-item__price {
+      font-family: var(--font-display); font-size: 1.05rem; font-weight: 400;
+      color: var(--copper); white-space: nowrap;
+    }
+    .menu-item__dots { flex: 1; border-bottom: 1px dotted var(--stone); margin-bottom: 6px; }
+    .menu-item__desc {
+      font-family: var(--font-body); font-size: 0.85rem; font-weight: 300;
+      color: var(--warm-gray); line-height: 1.7; letter-spacing: 0.02em;
+    }
+    .menu-item__tag {
+      display: inline-block; margin-top: 0.5rem;
+      font-family: var(--font-body); font-size: 0.6rem; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--pine-light); border: 1px solid var(--pine-soft);
+      padding: 0.2rem 0.6rem; border-radius: 1px; background: var(--pine-soft);
+    }
+    .menu-item__tag--vegan {
+      color: var(--copper); border-color: var(--copper-soft); background: var(--copper-soft);
+    }
+    .menu-item__tag--gf {
+      color: var(--pine-light); border-color: var(--pine-soft); background: var(--pine-soft);
+    }
+
+    .menu__divider { display: flex; align-items: center; gap: 1.5rem; margin: 2.5rem 0; }
+    .menu__divider-line { flex: 1; height: 1px; background: var(--stone); }
+    .menu__divider-star { width: 14px; height: 14px; opacity: 0.5; }
+
+    .menu__note {
+      text-align: center; max-width: 520px; margin: 0 auto 4rem;
+      padding: 2.5rem 2rem; border: 1px solid var(--stone);
+      border-radius: 2px; background: var(--cream);
+    }
+    .menu__note-title {
+      font-family: var(--font-display); font-size: 1.3rem; font-weight: 400;
+      font-style: italic; color: var(--pine); margin-bottom: 0.8rem;
+    }
+    .menu__note-desc {
+      font-family: var(--font-body); font-size: 0.82rem; font-weight: 300;
+      color: var(--warm-gray); line-height: 1.8;
+    }
+
+    /* ═══════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════ */
+    .lunch-footer {
+      text-align: center; padding: 3rem 2rem 2rem;
+      border-top: 1px solid var(--stone);
+      max-width: 820px; margin: 0 auto;
+    }
+    .lunch-footer__brand {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0.6rem; margin-bottom: 0.8rem;
+    }
+    .lunch-footer__star { width: 20px; height: 20px; }
+    .lunch-footer__name {
+      font-family: var(--font-display); font-size: 1.3rem; font-weight: 400; color: var(--pine);
+    }
+    .lunch-footer__info {
+      font-family: var(--font-body); font-size: 0.75rem; font-weight: 300;
+      color: var(--warm-gray); letter-spacing: 0.1em; line-height: 1.8;
+    }
+    .lunch-footer__back {
+      display: inline-block; margin-top: 1.5rem;
+      font-family: var(--font-body); font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--pine); border: 1px solid var(--pine-light);
+      padding: 0.8rem 2rem; transition: all 0.3s ease;
+    }
+    .lunch-footer__back:hover { background: var(--pine); color: var(--snow); }
+
+    /* ═══════════════════════════════════════
+       ANIMATIONS
+       ═══════════════════════════════════════ */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal--visible { opacity: 1; transform: translateY(0); }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes scrollPulse { 0%,100% { opacity: 0.3; } 50% { opacity: 0.8; } }
+
+    /* ═══════════════════════════════════════
+       RESPONSIVE
+       ═══════════════════════════════════════ */
+    @media (max-width: 768px) {
+      .menu { padding: 3.5rem 1.5rem 3rem; }
+      .menu-item__header { flex-wrap: wrap; }
+      .menu-item__dots { display: none; }
+      .menu-item__price { width: 100%; margin-top: 0.2rem; }
+      .back-btn { top: 16px; left: 16px; padding: 0.6rem 1rem; }
+    }
+    @media (max-width: 480px) {
+      .menu { padding: 3rem 1.2rem 2rem; }
+      .menu-item { padding: 1.2rem 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BACK BUTTON -->
+  <a href="index.html" class="back-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M19 12H5M12 19l-7-7 7-7"/>
+    </svg>
+    Back to Main
+  </a>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- HERO                                    -->
+  <!-- ═══════════════════════════════════════ -->
+  <header class="lunch-hero">
+    <div class="lunch-hero__bg"></div>
+    <div class="lunch-hero__overlay"></div>
+    <div class="lunch-hero__content">
+      <div class="lunch-hero__watermark">Lunch</div>
+      <svg class="lunch-hero__star" viewBox="0 0 100 100" fill="none">
+        <polygon points="50,5 61,35 95,35 68,57 78,90 50,70 22,90 32,57 5,35 39,35" fill="#C0392B" fill-opacity="0.7" stroke="#D94A3C" stroke-opacity="0.8" stroke-width="1"/>
+      </svg>
+      <p class="lunch-hero__label">Midday on Patricia Street</p>
+      <h1 class="lunch-hero__title">Lunch</h1>
+      <p class="lunch-hero__hindi">दोपहर</p>
+      <div class="lunch-hero__line"></div>
+      <p class="lunch-hero__tagline">Refuel between adventures</p>
+    </div>
+    <div class="lunch-hero__scroll">
+      <span>Explore the Menu</span>
+      <div class="lunch-hero__scroll-line"></div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- THE MENU                                -->
+  <!-- ═══════════════════════════════════════ -->
+  <main class="menu">
+
+    <!-- ─── SANDWICHES ─── -->
+    <section class="menu__section">
+      <div class="menu__section-header">
+        <p class="menu__section-label">On House Sourdough</p>
+        <h2 class="menu__section-title">Sandwiches</h2>
+        <div class="menu__section-line"></div>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-item__header">
+          <span class="menu-item__name">Montreal Smoked Meat</span>
+          <span class="menu-item__dots"></span>
+          <span class="menu-item__price">$18</span>
+        </div>
+        <p class="menu-item__desc">Piled high on house-baked artisan sourdough, Dijon mustard, house pickles, Swiss cheese.</p>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-item__header">
+          <span class="menu-item__name">Jerk Chicken Sandwich</span>
+          <span class="menu-item__dots"></span>
+          <span class="menu-item__price">$17</span>
+        </div>
+        <p class="menu-item__desc">Spiced and grilled jerk chicken, mango slaw, pepper jack, chipotle aioli on grilled sourdough.</p>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-item__header">
+          <span class="menu-item__name">Pulled Pork</span>
+          <span class="menu-item__dots"></span>
+          <span class="menu-item__price">$18</span>
+        </div>
+        <p class="menu-item__desc">Slow-smoked pulled pork, house BBQ sauce, pickled onion, coleslaw on a toasted sourdough bun.</p>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-item__header">
+          <span class="menu-item__name">Lox Sandwich</span>
+          <span class="menu-item__dots"></span>
+          <span class="menu-item__price">$18</span>
+        </div>
+        <p class="menu-item__desc">Smoked salmon, cream cheese, capers, red onion, fresh dill, lemon on artisan sourdough.</p>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-item__header">
+          <span class="menu-item__name">Blueberry Brie Grilled Cheese</span>
+          <span class="menu-item__dots"></span>
+          <span class="menu-item__price">$16</span>
+        </div>
+        <p class="menu-item__desc">Triple cream brie, house blueberry compote, arugula, grilled golden on artisan sourdough.</p>
+        <span class="menu-item__tag">Vegetarian</span>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-item__header">
+          <span class="menu-item__name">Tofu BLT</span>
+          <span class="menu-item__dots"></span>
+          <span class="menu-item__price">$15</span>
+        </div>
+        <p class="menu-item__desc">House-marinated tofu bacon, lettuce, tomato, avocado, vegan aioli on grilled sourdough.</p>
+        <span class="menu-item__tag--vegan menu-item__tag">Vegan</span>
+      </div>
+    </section>
+
+    <!-- DIVIDER -->
+    <div class="menu__divider">
+      <div class="menu__divider-line"></div>
+      <svg class="menu__divider-star" viewBox="0 0 100 100" fill="none">
+        <polygon points="50,5 61,35 95,35 68,57 78,90 50,70 22,90 32,57 5,35 39,35" fill="#C0392B" fill-opacity="0.5"/>
+      </svg>
+      <div class="menu__divider-line"></div>
+    </div>
+
+    <!-- ─── WRAPS ─── -->
+    <section class="menu__section">
+      <div class="menu__section-header">
+        <p class="menu__section-label">Rolled &amp; Grilled</p>
+        <h2 class="menu__section-title">Wraps</h2>
+        <div class="menu__section-line"></div>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-item__header">
+          <span class="menu-item__name">Spicy Paneer Wrap</span>
+          <span class="menu-item__dots"></span>
+          <span class="menu-item__price">$16</span>
+        </div>
+        <p class="menu-item__desc">Spiced paneer, roasted peppers, spinach, mint chutney, pickled onion in a grilled tortilla.</p>
+        <span class="menu-item__tag">Vegetarian</span>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-item__header">
+          <span class="menu-item__name">Turkey Electra Wrap</span>
+          <span class="menu-item__dots"></span>
+          <span class="menu-item__price">$17</span>
+        </div>
+        <p class="menu-item__desc">Roasted turkey, cranberry aioli, brie, mixed greens, toasted almonds in a grilled wrap.</p>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-item__header">
+          <span class="menu-item__name">Veggie Hummus Wrap</span>
+          <span class="menu-item__dots"></span>
+          <span class="menu-item__price">$15</span>
+        </div>
+        <p class="menu-item__desc">House-made hummus, roasted vegetables, mixed greens, cucumber, tahini drizzle.</p>
+        <span class="menu-item__tag--vegan menu-item__tag">Vegan</span>
+      </div>
+    </section>
+
+    <!-- DIVIDER -->
+    <div class="menu__divider">
+      <div class="menu__divider-line"></div>
+      <svg class="menu__divider-star" viewBox="0 0 100 100" fill="none">
+        <polygon points="50,5 61,35 95,35 68,57 78,90 50,70 22,90 32,57 5,35 39,35" fill="#C0392B" fill-opacity="0.5"/>
+      </svg>
+      <div class="menu__divider-line"></div>
+    </div>
+
+    <!-- ─── SOUPS & SALADS ─── -->
+    <section class="menu__section">
+      <div class="menu__section-header">
+        <p class="menu__section-label">Garden &amp; Kettle</p>
+        <h2 class="menu__section-title">Soups &amp; Salads</h2>
+        <div class="menu__section-line"></div>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-item__header">
+          <span class="menu-item__name">Soup of the Day</span>
+          <span class="menu-item__dots"></span>
+          <span class="menu-item__price">$10</span>
+        </div>
+        <p class="menu-item__desc">Chef's daily creation served with a thick slice of house-baked sourdough. Ask what's on today.</p>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-item__header">
+          <span class="menu-item__name">Cheddar Broccoli Soup</span>
+          <span class="menu-item__dots"></span>
+          <span class="menu-item__price">$12</span>
+        </div>
+        <p class="menu-item__desc">Rich and creamy, made from scratch daily, served with artisan sourdough for dipping.</p>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-item__header">
+          <span class="menu-item__name">Mountain Greens Salad</span>
+          <span class="menu-item__dots"></span>
+          <span class="menu-item__price">$14</span>
+        </div>
+        <p class="menu-item__desc">Mixed greens, roasted beet, goat cheese, candied walnuts, dried cranberries, balsamic vinaigrette.</p>
+        <span class="menu-item__tag">Vegetarian</span>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-item__header">
+          <span class="menu-item__name">Halloumi Salad</span>
+          <span class="menu-item__dots"></span>
+          <span class="menu-item__price">$16</span>
+        </div>
+        <p class="menu-item__desc">Grilled halloumi, mixed greens, cherry tomatoes, cucumber, olives, red onion, lemon herb dressing.</p>
+        <span class="menu-item__tag">Vegetarian</span>
+      </div>
+    </section>
+
+    <!-- DIVIDER -->
+    <div class="menu__divider">
+      <div class="menu__divider-line"></div>
+      <svg class="menu__divider-star" viewBox="0 0 100 100" fill="none">
+        <polygon points="50,5 61,35 95,35 68,57 78,90 50,70 22,90 32,57 5,35 39,35" fill="#C0392B" fill-opacity="0.5"/>
+      </svg>
+      <div class="menu__divider-line"></div>
+    </div>
+
+    <!-- ─── SIDES & SWEETS ─── -->
+    <section class="menu__section">
+      <div class="menu__section-header">
+        <p class="menu__section-label">A Little Extra</p>
+        <h2 class="menu__section-title">Sides &amp; Sweets</h2>
+        <div class="menu__section-line"></div>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-item__header">
+          <span class="menu-item__name">House-Baked Cookie</span>
+          <span class="menu-item__dots"></span>
+          <span class="menu-item__price">$4</span>
+        </div>
+        <p class="menu-item__desc">Daily rotating flavours — chocolate chip, coconut apricot, cinnamon almond, and more. Ask for today's batch.</p>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-item__header">
+          <span class="menu-item__name">Cinnamon Sticky Bun</span>
+          <span class="menu-item__dots"></span>
+          <span class="menu-item__price">$6</span>
+        </div>
+        <p class="menu-item__desc">House-baked, warm, gooey, and impossible to resist.</p>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-item__header">
+          <span class="menu-item__name">Side of Sourdough</span>
+          <span class="menu-item__dots"></span>
+          <span class="menu-item__price">$4</span>
+        </div>
+        <p class="menu-item__desc">Two thick slices of our famous artisan sourdough with butter.</p>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-item__header">
+          <span class="menu-item__name">House-Made Muffin</span>
+          <span class="menu-item__dots"></span>
+          <span class="menu-item__price">$5</span>
+        </div>
+        <p class="menu-item__desc">Baked fresh daily — raspberry chocolate, blueberry lemon, or seasonal. Vegan options available.</p>
+      </div>
+    </section>
+
+    <!-- DIVIDER -->
+    <div class="menu__divider">
+      <div class="menu__divider-line"></div>
+      <svg class="menu__divider-star" viewBox="0 0 100 100" fill="none">
+        <polygon points="50,5 61,35 95,35 68,57 78,90 50,70 22,90 32,57 5,35 39,35" fill="#C0392B" fill-opacity="0.5"/>
+      </svg>
+      <div class="menu__divider-line"></div>
+    </div>
+
+    <!-- ─── DRINKS ─── -->
+    <section class="menu__section">
+      <div class="menu__section-header">
+        <p class="menu__section-label">Sip</p>
+        <h2 class="menu__section-title">Drinks</h2>
+        <div class="menu__section-line"></div>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-item__header">
+          <span class="menu-item__name">Phil &amp; Sebastian Coffee</span>
+          <span class="menu-item__dots"></span>
+          <span class="menu-item__price">$4</span>
+        </div>
+        <p class="menu-item__desc">Drip, espresso, americano, latte, cappuccino, or mocha. Oat and soy milk available.</p>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-item__header">
+          <span class="menu-item__name">Chai Latte</span>
+          <span class="menu-item__dots"></span>
+          <span class="menu-item__price">$5</span>
+        </div>
+        <p class="menu-item__desc">Spiced and steamed — a Coco's favourite on cold mountain mornings.</p>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-item__header">
+          <span class="menu-item__name">House-Made Iced Tea</span>
+          <span class="menu-item__dots"></span>
+          <span class="menu-item__price">$5</span>
+        </div>
+        <p class="menu-item__desc">Brewed fresh daily with seasonal fruit. Perfectly refreshing after the trails.</p>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-item__header">
+          <span class="menu-item__name">Smoothies</span>
+          <span class="menu-item__dots"></span>
+          <span class="menu-item__price">$9</span>
+        </div>
+        <p class="menu-item__desc">Berry Blast, Mango Coconut, or custom — made to order with fresh fruit. Dairy-free options available.</p>
+      </div>
+    </section>
+
+    <!-- ─── NOTE ─── -->
+    <div class="menu__note">
+      <h3 class="menu__note-title">Good to Know</h3>
+      <p class="menu__note-desc">
+        Every sandwich is served on our scratch-baked artisan sourdough. 
+        Gluten-free bread and wraps available on request. 
+        We take allergies seriously — please let us know and we'll take care of you.
+      </p>
+    </div>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- FOOTER                                  -->
+  <!-- ═══════════════════════════════════════ -->
+  <footer class="lunch-footer">
+    <div class="lunch-footer__brand">
+      <svg class="lunch-footer__star" viewBox="0 0 100 100" fill="none">
+        <polygon points="50,5 61,35 95,35 68,57 78,90 50,70 22,90 32,57 5,35 39,35" fill="#C0392B" stroke="#D94A3C" stroke-width="1.5"/>
+      </svg>
+      <span class="lunch-footer__name">Coco's Cafe</span>
+    </div>
+    <p class="lunch-footer__info">
+      608-B Patricia Street, Jasper, AB &bull; (780) 852-4550<br>
+      Monday — Sunday &bull; 7:00 AM — 4:00 PM
+    </p>
+    <a href="index.html" class="lunch-footer__back">&larr; Return to Main</a>
+  </footer>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    (function(){
+      'use strict';
+      var targets = document.querySelectorAll('.menu__section, .menu__divider, .menu__note, .lunch-footer');
+      targets.forEach(function(el){ el.classList.add('reveal'); });
+      var obs = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){ e.target.classList.add('reveal--visible'); obs.unobserve(e.target); }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      targets.forEach(function(el){ obs.observe(el); });
+    })();
+  </script>
+</body>
+</html>
